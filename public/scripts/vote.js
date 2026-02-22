@@ -33,7 +33,7 @@ var map = L.map('map', {
 japanBaseMap.addTo(map);
 const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
-//map.on('locationfound', onLocationFound);
+map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
 map.locate({setView: false, maxZoom: 14});
 
