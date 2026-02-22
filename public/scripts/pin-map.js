@@ -90,7 +90,7 @@ function onLocationError(e) {
   'sanada':   { 'lat': 36.5200, 'long': 138.2300, 'zoom': 13 },
   'takeishi': { 'lat': 36.4000, 'long': 138.0800, 'zoom': 13 },
 }
-  const block = getBlockFromUrlParam(){
+  const block = getBlockFromUrlParam()
   let latlong, zoom;
   if (block == null) {
     latlong = [36.4018, 138.2490],
