@@ -133,6 +133,12 @@ var map = L.map('map', {
 japanBaseMap.addTo(map);
 const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("現在地（精度: " + Math.round(radius) + "m）").openPopup();
+    L.circle(e.latlng, radius).addTo(map);
+}
 map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
 map.locate({setView: false, maxZoom: 14});
