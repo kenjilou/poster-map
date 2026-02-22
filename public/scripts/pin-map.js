@@ -80,9 +80,18 @@ async function loadBoardPins(pins, layer, status=null) {
   });
 }
 
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("現在地（精度: " + Math.round(radius) + "m）").openPopup();
+    L.circle(e.latlng, radius).addTo(map);
+}
+
 function onLocationError(e) {
-  // alert(e.message);
-  const mapConfig = {
+    // alert(e.message);
+}
+
+const mapConfig = {
   'ueda':     { 'lat': 36.3953, 'long': 138.2594, 'zoom': 13 },
   'shioda':   { 'lat': 36.3500, 'long': 138.2000, 'zoom': 13 },
   'kawanishi':{ 'lat': 36.4200, 'long': 138.1800, 'zoom': 13 },
@@ -90,17 +99,17 @@ function onLocationError(e) {
   'sanada':   { 'lat': 36.5200, 'long': 138.2300, 'zoom': 13 },
   'takeishi': { 'lat': 36.4000, 'long': 138.0800, 'zoom': 13 },
 }
-  const block = getBlockFromUrlParam()
-  let latlong, zoom;
-  if (block == null) {
-    latlong = [36.4018, 138.2490],
-    zoom = 12
-  } else {
+const block = getBlockFromUrlParam()
+let latlong, zoom;
+if (block == null) {
+    latlong = [36.4018, 138.2490]
+    zoom = 13
+} else {
     latlong = [mapConfig[block]['lat'], mapConfig[block]['long']]
     zoom = mapConfig[block]['zoom']
-  }
-  map.setView(latlong, zoom);
 }
+map.setView(latlong, zoom);
+
 
 const baseLayers = {
   'OpenStreetMap': osm,
