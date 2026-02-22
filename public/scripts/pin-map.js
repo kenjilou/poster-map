@@ -83,47 +83,19 @@ async function loadBoardPins(pins, layer, status=null) {
 function onLocationError(e) {
   // alert(e.message);
   const mapConfig = {
-    '23-east': {
-      'lat': 35.7266074,
-      'long': 139.8292152,
-      'zoom': 14,
-    },
-    '23-west': {
-      'lat': 35.6861171,
-      'long': 139.6490942,
-      'zoom': 13,
-    },
-    '23-city': {
-      'lat': 35.6916896,
-      'long': 139.7254559,
-      'zoom': 14,
-    },
-    'tama-north': {
-      'lat': 35.731028, 
-      'long': 139.481822,
-      'zoom': 13,
-    },
-    'tama-south': {
-      'lat': 35.6229399,
-      'long': 139.4584664,
-      'zoom': 13,
-    },
-    'tama-west': {
-      'lat': 35.7097579, 
-      'long': 139.2904051,
-      'zoom': 12,
-    },
-    'island': {
-      'lat': 34.5291416,
-      'long': 139.2819004,
-      'zoom': 11,
-    },
+  'ueda':     { 'lat': 36.3953, 'long': 138.2594, 'zoom': 13 },
+  'shioda':   { 'lat': 36.3500, 'long': 138.2000, 'zoom': 13 },
+  'kawanishi':{ 'lat': 36.4200, 'long': 138.1800, 'zoom': 13 },
+  'maruko':   { 'lat': 36.4600, 'long': 138.1200, 'zoom': 13 },
+  'sanada':   { 'lat': 36.5200, 'long': 138.2300, 'zoom': 13 },
+  'takeishi': { 'lat': 36.4000, 'long': 138.0800, 'zoom': 13 },
+}
   }
   const block = getBlockFromUrlParam()
   let latlong, zoom;
   if (block == null) {
-    latlong = [35.6988862, 139.4649636],
-    zoom = 11
+    latlong = [36.4018, 138.2490],
+    zoom = 12
   } else {
     latlong = [mapConfig[block]['lat'], mapConfig[block]['long']]
     zoom = mapConfig[block]['zoom']
