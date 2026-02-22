@@ -89,7 +89,6 @@ function onLocationFound(e) {
 
 function onLocationError(e) {
     // alert(e.message);
-}
 
 const mapConfig = {
   'ueda':     { 'lat': 36.3953, 'long': 138.2594, 'zoom': 13 },
@@ -109,7 +108,7 @@ if (block == null) {
     zoom = mapConfig[block]['zoom']
 }
 map.setView(latlong, zoom);
-
+}
 
 const baseLayers = {
   'OpenStreetMap': osm,
