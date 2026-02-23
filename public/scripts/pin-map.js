@@ -33,24 +33,24 @@ function getStatusText(status) {
 }
 
 function getStatusColor(status) {
-switch (status) {
-  case 0:
-    return '#0288D1';
-  case 1:
-    return '#FFD600';
-  case 2:
-    return '#E65100';
-  case 3:
-    return '#0F9D58';
-  case 4:
-    return '#FF9706';
-  case 5:
-    return '#9106E9';
-  case 6:
-    return '#FFD600';
-  default:
-    return '#0288D1';
-}
+  switch (status) {
+    case 0:
+      return '#0288D1';
+    case 1:
+      return '#FFD600';
+    case 2:
+      return '#E65100';
+    case 3:
+      return '#0F9D58';
+    case 4:
+      return '#FF9706';
+    case 5:
+      return '#9106E9';
+    case 6:
+      return '#FFD600';
+    default:
+      return '#0288D1';
+  }
 }
 
 function getPinNote(note) {
@@ -81,33 +81,15 @@ async function loadBoardPins(pins, layer, status=null) {
 }
 
 function onLocationFound(e) {
-    var radius = e.accuracy / 2;
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("現在地（精度: " + Math.round(radius) + "m）").openPopup();
-    L.circle(e.latlng, radius).addTo(map);
+  const radius = e.accuracy / 2;
+  const locationMarker = L.marker(e.latlng).addTo(map)
+    .bindPopup("現在地").openPopup();
+  const locationCircle = L.circle(e.latlng, radius).addTo(map);
+  map.setView(e.latlng, 14);
 }
 
 function onLocationError(e) {
-    // alert(e.message);
-
-const mapConfig = {
-  'ueda':     { 'lat': 36.3953, 'long': 138.2594, 'zoom': 13 },
-  'shioda':   { 'lat': 36.3500, 'long': 138.2000, 'zoom': 13 },
-  'kawanishi':{ 'lat': 36.4200, 'long': 138.1800, 'zoom': 13 },
-  'maruko':   { 'lat': 36.4600, 'long': 138.1200, 'zoom': 13 },
-  'sanada':   { 'lat': 36.5200, 'long': 138.2300, 'zoom': 13 },
-  'takeishi': { 'lat': 36.4000, 'long': 138.0800, 'zoom': 13 },
-}
-const block = getBlockFromUrlParam()
-let latlong, zoom;
-if (block == null) {
-    latlong = [36.4018, 138.2490]
-    zoom = 13
-} else {
-    latlong = [mapConfig[block]['lat'], mapConfig[block]['long']]
-    zoom = mapConfig[block]['zoom']
-}
-map.setView(latlong, zoom);
+  // 位置情報エラーは無視
 }
 
 const baseLayers = {
@@ -126,6 +108,26 @@ const overlays = {
   '期日前投票所':  L.layerGroup(),
 };
 
+const mapConfig = {
+  'ueda':     { 'lat': 36.3953, 'long': 138.2594, 'zoom': 13 },
+  'shioda':   { 'lat': 36.3500, 'long': 138.2000, 'zoom': 13 },
+  'kawanishi':{ 'lat': 36.4200, 'long': 138.1800, 'zoom': 13 },
+  'maruko':   { 'lat': 36.4600, 'long': 138.1200, 'zoom': 13 },
+  'sanada':   { 'lat': 36.5200, 'long': 138.2300, 'zoom': 13 },
+  'takeishi': { 'lat': 36.4000, 'long': 138.0800, 'zoom': 13 },
+}
+
+const block = getBlockFromUrlParam()
+const smallBlock = getSmallBlockFromUrlParam()
+let latlong, zoom;
+if (block == null) {
+  latlong = [36.4018, 138.2490]
+  zoom = 13
+} else {
+  latlong = [mapConfig[block]['lat'], mapConfig[block]['long']]
+  zoom = mapConfig[block]['zoom']
+}
+
 var map = L.map('map', {
   layers: [
     overlays['未'],
@@ -136,23 +138,16 @@ var map = L.map('map', {
     overlays['削除'],
     overlays['期日前投票所']
   ],
-  preferCanvas:true,
+  preferCanvas: true,
 });
+map.setView(latlong, zoom);
 japanBaseMap.addTo(map);
 const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
-function onLocationFound(e) {
-    var radius = e.accuracy / 2;
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("現在地（精度: " + Math.round(radius) + "m）").openPopup();
-    L.circle(e.latlng, radius).addTo(map);
-}
 map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
 map.locate({setView: false, maxZoom: 14});
 
-const block = getBlockFromUrlParam()
-const smallBlock= getSmallBlockFromUrlParam()
 let allBoardPins;
 getBoardPins(block, smallBlock).then(function(pins) {
   allBoardPins = pins
@@ -169,8 +164,6 @@ Promise.all([getProgress(), getProgressCountdown()]).then(function(res) {
   progressCountdown = res[1];
   progressBox((progress['total']*100).toFixed(2), 'topleft').addTo(map)
   progressBoxCountdown((parseInt(progressCountdown['total'])), 'topleft').addTo(map)
-}).catch((error) => {
-  console.error('Error in fetching data:', error);
 });
 
 loadVoteVenuePins(overlays['期日前投票所']);
