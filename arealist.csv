@@ -1,7 +1,7 @@
-id,name
-ueda,上田地区
-shioda,塩田地区
-kawanishi,川西地区
-maruko,丸子地区
-sanada,真田地区
-takeishi,武石地区
+area_id,area_name
+1,上田地区
+2,塩田地区
+3,川西地区
+4,丸子地区
+5,真田地区
+6,武石地区
