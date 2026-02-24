@@ -29,6 +29,10 @@ jobs:
       - name: Download CSV
         run: curl -sL "${{ secrets.CSV_URL }}" > public/data/all.csv
       - name: Convert CSV to JSON 
+      - name: Summarize Progress
+        run: |
+          python summarize_progress.py public/data/summary.json
+          python summarize_progress_absolute.py public/data/summary_absolute.json
         run: python csv2json_small.py public/data/all.csv public/data/all.json
       - name: Commit & push changes
         run: |
