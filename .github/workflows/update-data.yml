@@ -23,7 +23,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r python-requirements.txt
       - name: Setup Directory
-        run: mkdir -p public/data
+        run: 
+          mkdir -p public/data
+          mkdir -p public/data/block
       - name: Download CSV
         run: curl -sL "${{ secrets.CSV_URL }}" > public/data/all.csv
       - name: Convert CSV to JSON
