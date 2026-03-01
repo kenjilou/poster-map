@@ -15,14 +15,13 @@ def main(input_path, output_path):
     final_data = merged_data.copy()[['area_id', 'name', 'lat', 'long', 'status', 'note']]
 
     area_blocks = {
-        '23-east': '23区東部',
-        '23-west': '23区西部',
-        '23-city': '23区都心部',
-        'tama-north': '多摩北部',
-        'tama-south': '多摩南部',
-        'tama-west': '多摩西部',
-        'island': '島しょ部',
-    }
+    'ueda': '上田市',
+    'shioda': '上田市',
+    'kawanishi': '上田市',
+    'maruko': '上田市',
+    'sanada': '上田市',
+    'takeishi': '上田市',
+}
     
     for block_key, block_name in area_blocks.items():
         block_areas = arealist[arealist['area_block'] == block_name]['area_id']
