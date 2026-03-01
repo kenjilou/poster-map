@@ -1,8 +1,8 @@
 # poster-map
 ## アプリケーション概要
-* 選挙の際にポスターを貼るべき看板の位置を登録し、自陣営のポスター貼付け状況を管理できるシステムです
+* 選挙の際にポスターを貼るべき看板の位置を登録し、ポスター貼付け状況を管理できるシステムです
 * 2024年東京都知事選で安野たかひろ陣営が運用していたシステムをオープンソースとして公開可能な形に調整したものです
-* 都知事選での運用の詳細は[こちらのnote記事](https://note.com/annotakahiro24/n/nb7c6d5d5f172)をご確認ください。
+* そのオープンソースを利用し、上田市バージョンに変更したものです
 
 ## ライセンスについて
 * このプロジェクトは[GPL-3.0 license](https://github.com/takahiroanno2024/anno-ai-avatar?tab=GPL-3.0-1-ov-file)にて公開されています。
@@ -21,6 +21,7 @@ https://anno-poster-map.netlify.app/
 - `/map`: ポスターマップ
     - `?block=BLOCKNAME` とパラメータを設定することで、特定の地区のみ表示可能
     - `23-city`, `23-east`, `23-west`, `tama-north`, `tama-south`, `tama-west`, `island`
+    - 上田市バージョンでは、仮で地域設定をしています
 - `/summary`: 市区町村ごとの完了率をヒートマップとして可視化したマップ
 - `/vote`: 期日前投票所のみを表示したマップ
 
@@ -33,8 +34,8 @@ https://anno-poster-map.netlify.app/
     - Pythonが使える環境 (Linux, macOS, WSL2等を推奨)
     - クラウド上のインスタンスでも、オンプレミスの物理マシンでもOK（重い処理はないのでRaspberry Piなどで良い）
 - Netlify
-    - https://anno-poster-map.netlify.app といったURLで、Webサービスを公開できる (基本的に無料で利用可能)
-    - `netlify-cli`を使ってサーバーからNetlifyに`public/`ディレクトリを直接デプロイ
+    - https://whimsical-profiterole-23794f.netlify.app　のURLで、Web公開しています。
+  　- `netlify-cli`を使ってサーバーからNetlifyに`public/`ディレクトリを直接デプロイ
 
 ## 公開データ
 - `data/arealist.json`: 市区町村名とそれに対応するID一覧 (JSON)
